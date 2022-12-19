@@ -11,8 +11,12 @@
 ###
 
 <div align="center">
-  <img height="800" src="https://i.postimg.cc/52sq360y/drawing.png"  />
+  <img height="700" src="https://i.postimg.cc/52sq360y/drawing.png"  />
 </div>
+
+###
+
+<p align="left">go grab yourself a copy at RELEASES</p>
 
 ###
 
