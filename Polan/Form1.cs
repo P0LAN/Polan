@@ -1,19 +1,21 @@
 using System.Speech.Synthesis;
 using System.Speech.Recognition;
-
-
+using System.Diagnostics;
+using System;
 
 namespace Polan
 {
     public partial class Form1 : Form
     {
         SpeechSynthesizer s = new SpeechSynthesizer();
+        Boolean wake = true;
+
         Choices list = new Choices();
         public Form1()
         {
             SpeechRecognitionEngine rec = new SpeechRecognitionEngine();
 
-            list.Add(new String[] { "hello", "how are you" });
+            list.Add(new String[] { "hello", "how are you", "what time is it", "what is today", "what is the time", "open google", "open github", "open your website", "go to downloads page for polan", "wake", "sleep" });
 
             Grammar gr  = new Grammar(new GrammarBuilder(list));
 
@@ -45,14 +47,30 @@ namespace Polan
         {
             String r = e.Result.Text;
 
-            //what you say
-            if (r == "hello")
-            {//what the voice assis says
-                say("Hi");
-            }
-            if (r == "how are you")
-            {//what the voice assis says
-                say("Great, and you?");
+            if (r == "wake") wake = true;
+            if (r == "sleep") wake = false;
+
+            if (wake == true)
+            {
+
+                //what you say
+                if (r == "hello")
+                {//what the voice assis says
+                    say("Hi");
+                }
+                if (r == "what is the time" || r == "what time is it")
+                {//what the voice assis says
+                    say(DateTime.Now.ToString("h:mm tt"));
+                }
+                if (r == "what is today")
+                {//what the voice assis says
+                    say(DateTime.Now.ToString("M/d/yyyy"));
+                }
+                if (r == "open google")
+                {
+                    Process.Start("http://google.com");
+                }
+
             }
         }
 
