@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialSkin.2" Version="2.1.3" />
     <PackageReference Include="System.Speech" Version="7.0.0" />
   </ItemGroup>
 
