@@ -50,18 +50,40 @@ namespace Polan
             Process.Start(@"C:\Users\ttt\polan.exe");
             Environment.Exit(0);    
         }
-
+       
         public void say(String h)
         {
             s.Speak(h);
+            materialMultiLineTextBox2.AppendText(h + '\n');
         }
 
         private void rec_SpeachRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             String r = e.Result.Text;
 
-            if (r == "wake") wake = true;
-            if (r == "sleep") wake = false;
+            if (r == "wake")
+            {
+                wake = true;
+                label2.Text = "awake";
+            }
+
+            if (r == "sleep")
+            {
+                wake = false;
+                label2.Text = "asleep";
+            }
+     
+
+            if (materialCheckbox2.Checked == true) 
+            {
+                wake = true;
+                label2.Text = "awake";
+            }
+            else if (materialCheckbox2.Checked == false) 
+            {
+                wake = false;
+                label2.Text = "asleep";
+            }
 
             if (wake == true)
             {
@@ -85,11 +107,21 @@ namespace Polan
                 }
 
             }
-        }
+            materialMultiLineTextBox1.AppendText(r + '\n');
 
+
+            
+        
+}
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
+        private void materialLabel2_Click(object sender, EventArgs e)
+        {
+
+        }
+      
     }
 }
