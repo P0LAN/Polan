@@ -18,7 +18,7 @@ namespace Polan
         {
             SpeechRecognitionEngine rec = new SpeechRecognitionEngine();
 
-            list.Add(new String[] { "hello", "how are you", "what time is it", "what is today", "what is the time", "open google", "open github", "open your website", "go to downloads page for polan", "wake", "sleep", "restart", "update" });
+            list.Add(new String[] { "hello", "how are you", "what time is it", "what is today", "what is the time", "open google", "open github", "open your website", "go to downloads page for polan", "wake", "sleep", "restart", "update", "open edge", "close edge", "what is the weather" , "what is the wather like" , "what is the tempreature", "is it hot outside"});
 
             Grammar gr  = new Grammar(new GrammarBuilder(list));
 
@@ -43,7 +43,33 @@ namespace Polan
 
             InitializeComponent();
         }
-        /// test public void down
+        public static void killProg(String s)
+        {
+            System.Diagnostics.Process[] procs = null;
+
+            try
+            {
+                procs = Process.GetProcessesByName(s);
+                Process prog = procs[0];
+
+                if (!prog.HasExited)
+                {
+                    prog.Kill();
+                }
+            }
+            finally
+            {
+                if(procs != null)
+                {
+                    foreach (Process p in procs)
+                    {
+                        p.Dispose();
+                    }
+                }
+            }
+            
+        }
+        
        
         public void restart()
         {
@@ -101,9 +127,17 @@ namespace Polan
                 {//what the voice assis says
                     say(DateTime.Now.ToString("M/d/yyyy"));
                 }
-                if (r == "open google")
+                //  if (r == "open google")
+                // {
+                //    System.Diagnostics.Process.Start("http://www.google.com");
+                // }
+                if (r == "open edge")
                 {
-                    Process.Start("http://google.com");
+                    Process.Start(@"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe");
+                }
+                if (r == "close edge")
+                {
+                    killProg("msedge");
                 }
 
             }
