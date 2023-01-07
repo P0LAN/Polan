@@ -7,6 +7,10 @@ using MaterialSkin.Controls;
 using Microsoft.VisualBasic.Logging;
 using System.Xml;
 using System.Net;
+using System.IO;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
+
 
 namespace Polan
 {
@@ -14,16 +18,21 @@ namespace Polan
     {
         SpeechSynthesizer s = new SpeechSynthesizer();
         Boolean wake = false;
+        Boolean search = false;
+        //per
 
-        String temp;
-        String condition;
+        String name = "polan";
+        String namePath = @"C:\Users\k8ttt\Polan_commands\saved.txt";
+     
+
+
         Choices list = new Choices();
         public Polan()
         {
+            
+            list.Add(File.ReadAllLines(@"C:\Users\k8ttt\Polan_commands\commands.txt"));
             SpeechRecognitionEngine rec = new SpeechRecognitionEngine();
-
-            list.Add(new String[] { "hello", "how are you", "what time is it", "what is today", "what is the time", "open google", "open github", "open your website", "go to downloads page for polan", "wake", "sleep", "restart", "update", "open edge", "close edge", "what is the weather" , "what is the wather like" , "what is the tempreature", 
-                "is it hot outside", "hey polan" , "minimize" , "maxamize" , "unminimize" , "play" , "pause" , "spotify" , "next" , "last"});
+           
 
             Grammar gr  = new Grammar(new GrammarBuilder(list));
 
@@ -49,45 +58,7 @@ namespace Polan
             InitializeComponent();
         }
 
-        public String GetWeather(String input)
-        {
-            String query = String.Format("https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='portland, or')&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
-            XmlDocument wData = new XmlDocument();
-            try
-            {
-                wData.Load(input);
-            }
-            catch
-            {
-                MessageBox.Show("no internet :(");
-                return "No internet";
-            }
-
-            XmlNamespaceManager manager = new XmlNamespaceManager(wData.NameTable);
-            manager.AddNamespace("yweather", "http://xml.weather.yahoo.com/ns/rss/1.0");
-
-            XmlNode channel = wData.SelectSingleNode("query").SelectSingleNode("results").SelectSingleNode("channel");
-            XmlNodeList nodes = wData.SelectNodes("query/results/channel");
-            try
-            {
-                temp = channel.SelectSingleNode("item").SelectSingleNode("yweather:condition", manager).Attributes["temp"].Value;
-                condition = channel.SelectSingleNode("item").SelectSingleNode("yweather:condition", manager).Attributes["text"].Value;
-            
-                if (input == "temp")
-                {
-                    return temp;
-                }
-                if (input == "cond")
-                {
-                    return condition;
-                }
-            }
-            catch
-            {
-                return "Error Reciving data";
-            }
-            return "error";
-        }
+       
         public static void killProg(String s)
         {
             System.Diagnostics.Process[] procs = null;
@@ -142,9 +113,18 @@ namespace Polan
         {
             String r = e.Result.Text;
 
+          if (search)
+            {
+                Process.Start(new ProcessStartInfo("https://duckduckgo.com/?q=" + r + "&t=h_&ia=web") { UseShellExecute = true });
+                search = false;
+            }
+      
+                if (r == "what is my name")
+            {
+                say("your name is"+name);
+            }
 
-
-            if(r == "hey polan")
+                if (r == "hey polan")
             { 
                 say(greetings_action());
                 wake = true;
@@ -161,85 +141,80 @@ namespace Polan
                 wake = false;
                 label2.Text = "asleep";
             }
-     
-            ////under construction ;)
-          ///  if (materialCheckbox2.Checked == true) 
-           /// {
-            ///    wake = true;
-           //     label2.Text = "awake";
-           // }
-           // else if (materialCheckbox2.Checked == false) 
-           //{
-            //    wake = false;
-           //     label2.Text = "asleep";
-          //  }
-
-            if (wake == true)
-            {//under construction
-             //  if (r == "tell me a joke")
-             // {
-             //  say(w.DownloadString("http://api.yomama.info/").Replace("\"", "").Replace("{", "").Replace("}","").Replace(":","").Replace("joke",""));
-             // }
-                if (r == "spotify")
-                {
-                    Process.Start(new ProcessStartInfo("https://open.spotify.com") { UseShellExecute = true });
-                }
-                if (r == "next")
-                {
-                    SendKeys.Send("^{RIGHT} ");
-                }
-                if (r == "last")
-                {
-                    SendKeys.Send("^{LEFT} ");
-                }
-                if (r == "play" || r == "pause")
-                {
-                    SendKeys.Send(" ");
-                }
-                    if (r == "unminimize")
-                {
-                    this.WindowState = FormWindowState.Normal;
-                }
-                if (r == "minimize")
-                {
-                    this.WindowState= FormWindowState.Minimized;    
-                }
-                if (r == "maxamize")
-                {
-                    this.WindowState = FormWindowState.Maximized;
-          
-                }
-                if (r == "what is the weather")
-                {//what the voice assis says
-                    say("the sky is, "+ GetWeather("cond") + ".");
-                }
-                //what you say
-                if (r == "hello")
-                {//what the voice assis says
-                    say("Hi");
-                }
-                if (r == "what is the time" || r == "what time is it")
-                {//what the voice assis says
-                    say(DateTime.Now.ToString("h:mm tt"));
-                }
-                if (r == "what is today")
-                {//what the voice assis says
-                    say(DateTime.Now.ToString("M/d/yyyy"));
-                }
-                  if (r == "open google")
-                 {
-                    Process.Start(new ProcessStartInfo("https://www.google.com") { UseShellExecute = true });
-                }
-                if (r == "open edge")
-                {
-                    Process.Start(@"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe");
-                }
-                if (r == "close edge")
-                {
-                    killProg("msedge");
-                }
-
+            if (r == "stop")
+            {
+                s.SpeakAsyncCancelAll();
             }
+
+            ////under construction ;)
+            ///  if (materialCheckbox2.Checked == true) 
+            /// {
+            ///    wake = true;
+            //     label2.Text = "awake";
+            // }
+            // else if (materialCheckbox2.Checked == false) 
+            //{
+            //    wake = false;
+            //     label2.Text = "asleep";
+            //  }
+
+
+            if (wake == true && search == false)
+            {
+                switch (r)
+                {
+                    case "search for":
+                        search = true;
+                        break;
+                    case "open soundcloud":
+                        Process.Start(new ProcessStartInfo("https://soundcloud.com") { UseShellExecute = true });
+                        break;
+                    case "open spotify":
+                        Process.Start(new ProcessStartInfo("https://open.spotify.com") { UseShellExecute = true });
+                        break;
+                    case "next":
+                        SendKeys.Send("^{RIGHT} ");
+                        break;
+                    case "last":
+                        SendKeys.Send("^{LEFT} ");
+                        break;
+                    case "play":
+                    case "pause":
+                        SendKeys.Send(" ");
+                        break;
+                    case "unminimize":
+                        this.WindowState = FormWindowState.Normal;
+                        break;
+                    case "minimize":
+                        this.WindowState = FormWindowState.Minimized;
+                        break;
+                    case "maxamize":
+                        this.WindowState = FormWindowState.Maximized;
+                        break;
+                    case "hello":
+                        say("Hi");
+                        break;
+                    case "what is the time":
+                    case "what time is it":
+                        say(DateTime.Now.ToString("h:mm tt"));
+                        break;
+                    case "what is today":
+                        say(DateTime.Now.ToString("M/d/yyyy"));
+                        break;
+                    case "open google":
+                        Process.Start(new ProcessStartInfo("https://www.google.com") { UseShellExecute = true });
+                        break;
+                    case "open edge":
+                        Process.Start(@"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe");
+                        break;
+                    case "close edge":
+                        killProg("msedge");
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             materialMultiLineTextBox1.AppendText(r + '\n');
 
 
@@ -255,6 +230,10 @@ namespace Polan
         {
 
         }
-      
+
+        private void Main_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

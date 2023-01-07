@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polan", "Polan\Polan.csproj", "{7A071301-B7E0-4337-942D-5A297A78E2BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Polan", "Polan\Polan.csproj", "{7A071301-B7E0-4337-942D-5A297A78E2BF}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Polan_Setup", "Polan_Setup\Polan_Setup.vdproj", "{776CD905-66D0-4635-BA0B-3474A945D9F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{7A071301-B7E0-4337-942D-5A297A78E2BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A071301-B7E0-4337-942D-5A297A78E2BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A071301-B7E0-4337-942D-5A297A78E2BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{776CD905-66D0-4635-BA0B-3474A945D9F9}.Debug|Any CPU.ActiveCfg = Debug
+		{776CD905-66D0-4635-BA0B-3474A945D9F9}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
