@@ -163,6 +163,11 @@ namespace Polan
             {
                 switch (r)
                 {
+                    case "what is the weather":
+                    case "what is the weather like":
+                        say("showing weather right now");
+                        Process.Start(new ProcessStartInfo("https://duckduckgo.com/?q=" +"what is the weather"+ "&t=h_&ia=web") { UseShellExecute = true });
+                        break;
                     case "search for":
                         search = true;
                         break;
