@@ -7,15 +7,15 @@ using MaterialSkin.Controls;
 using Microsoft.VisualBasic.Logging;
 using System.Xml;
 using System.Net;
-using System.IO;
 using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
-
+using System.Drawing.Text;
 
 namespace Polan
 {
+
     public partial class Polan : MaterialForm
     {
+
         SpeechSynthesizer s = new SpeechSynthesizer();
         Boolean wake = false;
         Boolean search = false;
@@ -23,13 +23,17 @@ namespace Polan
 
         String name = "polan";
         String namePath = @"C:\Users\k8ttt\Polan_commands\saved.txt";
-     
 
+        WebClient w = new WebClient();
+          
 
         Choices list = new Choices();
         public Polan()
+               
         {
-            
+           
+
+
             list.Add(File.ReadAllLines(@"C:\Users\k8ttt\Polan_commands\commands.txt"));
             SpeechRecognitionEngine rec = new SpeechRecognitionEngine();
            
@@ -56,6 +60,7 @@ namespace Polan
             s.Speak("polan starting up");
 
             InitializeComponent();
+      
         }
 
        
@@ -109,23 +114,27 @@ namespace Polan
             return greetings[r.Next(4)];
         }
 
-        private void rec_SpeachRecognized(object sender, SpeechRecognizedEventArgs e)
+        private void rec_SpeachRecognized(object sender, SpeechRecognizedEventArgs e )
         {
+
             String r = e.Result.Text;
 
-          if (search)
+
+
+            if (search)
             {
                 Process.Start(new ProcessStartInfo("https://duckduckgo.com/?q=" + r + "&t=h_&ia=web") { UseShellExecute = true });
                 search = false;
             }
-      
-                if (r == "what is my name")
+
+
+            if (r == "what is my name")
             {
-                say("your name is"+name);
+                say("your name is" + name);
             }
 
-                if (r == "hey polan")
-            { 
+            if (r == "hey polan")
+            {
                 say(greetings_action());
                 wake = true;
             }
@@ -161,12 +170,40 @@ namespace Polan
 
             if (wake == true && search == false)
             {
+              //static async Task MainAsync(string[] args)
+              //{
+
+
+                 // string url = "http://api.yomomma.info/";
+                //  WebClient client = new WebClient();
+                 // string json = client.DownloadString(url);
+
+                 // // Parse the response
+               //   JObject response = JObject.Parse(json);
+//
+                    // Get the joke
+               //   string joke = (string)response["joke"];
+
+//
+
+             // }
+
                 switch (r)
                 {
+                    case "give me a random quote":
+                        say("wait"+w.DownloadString("https://api.quotable.io/random?tags=technology,famous-quotes"));
+                        break;
+                    case "give me a random number":
+                        say(w.DownloadString("http://www.randomnumberapi.com/api/v1.0/random?min=100&max=1000&count=1"));
+                        break;
+                   case"tell me a joke":
+                        say(w.DownloadString("http://api.yomomma.info/").Replace("\"", "").Replace("{", "").Replace("}", "").Replace(":", "").Replace("joke", ""));
+                      break;
                     case "what is the weather":
                     case "what is the weather like":
                         say("showing weather right now");
                         Process.Start(new ProcessStartInfo("https://www.tomorrow.io/weather/") { UseShellExecute = true });
+
                         break;
                     case "search for":
                         search = true;
@@ -217,15 +254,20 @@ namespace Polan
                         break;
                     default:
                         break;
-                }
-            }
 
+                }
+               
+
+            }
             materialMultiLineTextBox1.AppendText(r + '\n');
 
 
-            
-        
-}
+
+
+          
+
+
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -242,3 +284,6 @@ namespace Polan
         }
     }
 }
+
+
+
