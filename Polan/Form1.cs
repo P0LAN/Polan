@@ -166,7 +166,7 @@ namespace Polan
                     case "what is the weather":
                     case "what is the weather like":
                         say("showing weather right now");
-                        Process.Start(new ProcessStartInfo("https://duckduckgo.com/?q=" +"what is the weather"+ "&t=h_&ia=web") { UseShellExecute = true });
+                        Process.Start(new ProcessStartInfo("https://www.tomorrow.io/weather/") { UseShellExecute = true });
                         break;
                     case "search for":
                         search = true;
