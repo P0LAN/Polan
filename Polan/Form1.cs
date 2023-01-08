@@ -190,6 +190,9 @@ namespace Polan
 
                 switch (r)
                 {
+                case "how are you":
+                say("im fine");
+                break;
                     case "give me a random quote":
                         say("wait"+w.DownloadString("https://api.quotable.io/random?tags=technology,famous-quotes"));
                         break;
