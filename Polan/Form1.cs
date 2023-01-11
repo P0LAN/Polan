@@ -22,7 +22,7 @@ namespace Polan
         //per
 
         String name = "polan";
-        String namePath = @"C:\Users\k8ttt\Polan_commands\saved.txt";
+        String namePath = @"C:\Program Files\Polan_commands\saved.txt";
 
         WebClient w = new WebClient();
           
@@ -34,7 +34,7 @@ namespace Polan
            
 
 
-            list.Add(File.ReadAllLines(@"C:\Users\k8ttt\Polan_commands\commands.txt"));
+            list.Add(File.ReadAllLines(@"C:\Program Files\Polan_commands\commands.txt"));
             SpeechRecognitionEngine rec = new SpeechRecognitionEngine();
            
 
