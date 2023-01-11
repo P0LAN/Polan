@@ -22,7 +22,7 @@ namespace Polan
         //per
 
         String name = "polan";
-        String namePath = @"C:\Program Files\Polan_commands\saved.txt";
+        String namePath = @"C:\Program Files (x86)\Polan\P0LAN\saved.txt";
 
         WebClient w = new WebClient();
           
@@ -34,7 +34,7 @@ namespace Polan
            
 
 
-            list.Add(File.ReadAllLines(@"C:\Program Files\Polan_commands\commands.txt"));
+            list.Add(File.ReadAllLines(@"C:\Program Files (x86)\Polan\P0LAN\commands.txt"));
             SpeechRecognitionEngine rec = new SpeechRecognitionEngine();
            
 
@@ -190,7 +190,11 @@ namespace Polan
 
                 switch (r)
                 {
-                case "how are you":
+                    case "eu":
+                        say("my brother in christ we are all bosnian not european");
+                        Process.Start(new ProcessStartInfo("https://youtu.be/yRGgl9KT9rE") { UseShellExecute = true });
+                        break;
+                    case "how are you":
                 say("im fine");
                 break;
                     case "give me a random quote":
