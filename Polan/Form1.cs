@@ -145,11 +145,11 @@ namespace Polan
                 label2.Text = "awake";
             }
 
-            if (r == "sleep")
-            {
-                wake = false;
-                label2.Text = "asleep";
-            }
+       ///     if (r == "sleep")
+        ///    {
+          ///      wake = false;
+            ///    label2.Text = "asleep";
+          ///  }
             if (r == "stop")
             {
                 s.SpeakAsyncCancelAll();
@@ -180,11 +180,11 @@ namespace Polan
 
                  // // Parse the response
                //   JObject response = JObject.Parse(json);
-//
+
                     // Get the joke
                //   string joke = (string)response["joke"];
 
-//
+
 
              // }
 
