@@ -113,7 +113,7 @@ namespace Polan
             Random r = new Random();
             return greetings[r.Next(4)];
         }
-
+//re28#!
         private void rec_SpeachRecognized(object sender, SpeechRecognizedEventArgs e )
         {
 
