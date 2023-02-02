@@ -190,8 +190,7 @@ namespace Polan
 
                 switch (r)
                 {
-                    case "eu":
-                        say("my brother in christ we are all bosnian not european");
+                    c
                         Process.Start(new ProcessStartInfo("https://youtu.be/yRGgl9KT9rE") { UseShellExecute = true });
                         break;
                     case "how are you":
