@@ -190,9 +190,7 @@ namespace Polan
 
                 switch (r)
                 {
-                    c
-                        Process.Start(new ProcessStartInfo("https://youtu.be/yRGgl9KT9rE") { UseShellExecute = true });
-                        break;
+                    
                     case "how are you":
                 say("im fine");
                 break;
