@@ -12,27 +12,35 @@ using System.Drawing.Text;
 
 namespace Polan
 {
-
+    /// <summary>
+    /// Most commits : polan foundation
+    /// Website : https://p0lan.github.io/main
+    /// github repo link : https://github.com/p0lan/polan/
+    /// polan will not stay with winforms nor c# (might still use c#) as
+    /// its planned to finish its c++ replica so we can continue there
+    /// also please notice that we aknowledge that polan setup files 
+    /// are not uploaded to github because of lack of motivation for coding this :(
+    /// but i do have some that i will upload after this commit
+    /// last commit hashcode for tracking commits is : #913b4
+    /// </summary>
     public partial class Polan : MaterialForm
     {
 
+        String V = "1.5" ;
         SpeechSynthesizer s = new SpeechSynthesizer();
         Boolean wake = false;
         Boolean search = false;
-        //per
-
-        String name = "polan";
+  
+        String name = "User";
         String namePath = @"C:\Program Files (x86)\Polan\P0LAN\saved.txt";
 
         WebClient w = new WebClient();
-          
-
         Choices list = new Choices();
         public Polan()
                
         {
-           
 
+           
 
             list.Add(File.ReadAllLines(@"C:\Program Files (x86)\Polan\P0LAN\commands.txt"));
             SpeechRecognitionEngine rec = new SpeechRecognitionEngine();
@@ -60,10 +68,14 @@ namespace Polan
             s.Speak("polan starting up");
 
             InitializeComponent();
-      
+            release_number();
         }
 
-       
+        private void release_number()
+        {
+            Release.Text = "Version"+V;
+        }
+
         public static void killProg(String s)
         {
             System.Diagnostics.Process[] procs = null;
@@ -95,7 +107,7 @@ namespace Polan
        
         public void restart()
         {
-            Process.Start(@"C:\Users\ttt\polan.exe");
+            Process.Start(@"C:\Program Files (x86)\Polan\P0LAN\polan.exe");
             Environment.Exit(0);    
         }
        
@@ -113,7 +125,7 @@ namespace Polan
             Random r = new Random();
             return greetings[r.Next(4)];
         }
-//re28#!
+
         private void rec_SpeachRecognized(object sender, SpeechRecognizedEventArgs e )
         {
 
@@ -127,35 +139,15 @@ namespace Polan
                 search = false;
             }
 
-
-            if (r == "what is my name")
-            {
-                say("your name is" + name);
-            }
-
-            if (r == "hey polan")
-            {
-                say(greetings_action());
-                wake = true;
-            }
-
-            if (r == "wake")
-            {
-                wake = true;
-                label2.Text = "awake";
-            }
-
-       ///     if (r == "sleep")
+       ///     if (r == "sleep")         closed the command because polan sleeps after getting
+       ///                              the command and executing it but i might add this in the future
         ///    {
           ///      wake = false;
             ///    label2.Text = "asleep";
           ///  }
-            if (r == "stop")
-            {
-                s.SpeakAsyncCancelAll();
-            }
+      
 
-            ////under construction ;)
+            ////                       under construction ;)
             ///  if (materialCheckbox2.Checked == true) 
             /// {
             ///    wake = true;
@@ -170,27 +162,29 @@ namespace Polan
 
             if (wake == true && search == false)
             {
-              //static async Task MainAsync(string[] args)
-              //{
-
-
-                 // string url = "http://api.yomomma.info/";
-                //  WebClient client = new WebClient();
-                 // string json = client.DownloadString(url);
-
-                 // // Parse the response
-               //   JObject response = JObject.Parse(json);
-
-                    // Get the joke
-               //   string joke = (string)response["joke"];
-
-
-
-             // }
+            
 
                 switch (r)
                 {
-                    
+                    case "hey polan":
+                        say(greetings_action());
+                        wake = true;
+                        break;
+                    case "what is my name":
+                        say("your name is " + name);
+                        break;
+                    case "stop":
+                        say("ok" + name);
+                        s.SpeakAsyncCancelAll();
+                        break;
+                    case "wake":
+                        say("waking up");
+                         wake = true;
+                        break;
+                    case "restart":
+                        say("restarting now" + name);
+                        restart();
+                        break;
                     case "how are you":
                 say("im fine");
                 break;
@@ -286,6 +280,30 @@ namespace Polan
         {
 
         }
+
+        private void materialCard1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void materialButton1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+           
+        
     }
 }
 
