@@ -10,6 +10,8 @@ using System.Net;
 using System.Xml.Linq;
 using System.Drawing.Text;
 
+using static System.Net.WebRequestMethods;
+
 namespace Polan
 {
     /// <summary>
@@ -50,6 +52,7 @@ namespace Polan
 
             try
             {
+             
                 rec.RequestRecognizerUpdate();
                 rec.LoadGrammar(gr);
                 rec.SpeechRecognized += rec_SpeachRecognized;
@@ -73,7 +76,9 @@ namespace Polan
 
         private void release_number()
         {
-            Release.Text = "Version"+V;
+            Release.Text = "Version" + V;
+            quote.Text = (w.DownloadString("https://api.adviceslip.com/advice").Replace("\"", "").Replace("{", "").Replace("}", "").Replace(":", "").Replace("joke", ""));
+
         }
 
         public static void killProg(String s)
@@ -306,9 +311,35 @@ namespace Polan
 
         }
 
-       
-           
-        
+        private void materialCheckbox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialCheckbox3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialMultiLineTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialLabel1_Click_1(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
 
