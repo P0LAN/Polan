@@ -21,7 +21,7 @@ namespace Polan
     /// also please notice that we aknowledge that polan setup files 
     /// are not uploaded to github because of lack of motivation for coding this :(
     /// but i do have some that i will upload after this commit
-    /// last commit hashcode for tracking commits is : #913b4
+    /// last commit hashcode for tracking commits is : #27g485
     /// </summary>
     public partial class Polan : MaterialForm
     {
@@ -133,6 +133,12 @@ namespace Polan
 
 
 
+            if (r == "hey polan")
+            {
+                say(greetings_action());
+                wake = true;
+            }
+
             if (search)
             {
                 Process.Start(new ProcessStartInfo("https://duckduckgo.com/?q=" + r + "&t=h_&ia=web") { UseShellExecute = true });
@@ -166,10 +172,8 @@ namespace Polan
 
                 switch (r)
                 {
-                    case "hey polan":
-                        say(greetings_action());
-                        wake = true;
-                        break;
+                   
+
                     case "what is my name":
                         say("your name is " + name);
                         break;
@@ -186,16 +190,17 @@ namespace Polan
                         restart();
                         break;
                     case "how are you":
-                say("im fine");
+                say("im fine"+ name);
                 break;
                     case "give me a random quote":
-                        say("wait"+w.DownloadString("https://api.quotable.io/random?tags=technology,famous-quotes"));
+                        say("ok"+name+w.DownloadString("https://api.quotable.io/random?tags=technology,famous-quotes"));
                         break;
                     case "give me a random number":
                         say(w.DownloadString("http://www.randomnumberapi.com/api/v1.0/random?min=100&max=1000&count=1"));
                         break;
                    case"tell me a joke":
-                        say(w.DownloadString("http://api.yomomma.info/").Replace("\"", "").Replace("{", "").Replace("}", "").Replace(":", "").Replace("joke", ""));
+
+                        say("ok"+name+w.DownloadString("http://api.yomomma.info/").Replace("\"", "").Replace("{", "").Replace("}", "").Replace(":", "").Replace("joke", ""));
                       break;
                     case "what is the weather":
                     case "what is the weather like":
